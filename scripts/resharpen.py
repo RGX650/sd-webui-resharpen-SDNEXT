@@ -10,10 +10,7 @@ import gradio as gr
 original_callback = KDiffusionSampler.callback_state
 
 def hijack_callback(self, d):
-    if not self.trajectory_enable:
-        return original_callback(self, d)
-
-    if getattr(self.p, "_ad_inner", False):
+    if self.trajectory_enable is not True:
         return original_callback(self, d)
 
     if self.traj_cache is not None:
